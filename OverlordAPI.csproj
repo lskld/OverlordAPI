@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>209dbebb-a41d-4193-a2c3-761c55647167</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Models\DTOs\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>

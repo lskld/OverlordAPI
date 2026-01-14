@@ -1,4 +1,8 @@
 
+using Microsoft.EntityFrameworkCore;
+using OverlordAPI.Data;
+using System;
+
 namespace OverlordAPI
 {
     public class Program
@@ -8,10 +12,12 @@ namespace OverlordAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            builder.Services.AddDbContext<OverlordDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DB_CONNECTION_STRING")));
 
             var app = builder.Build();
 
