@@ -1,0 +1,6 @@
+@OverlordAPI_HostAddress = http://localhost:5014
+
+GET {{OverlordAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
