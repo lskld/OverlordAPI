@@ -13,7 +13,20 @@ namespace OverlordAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<Minion>().Property(m => m.Name).IsRequired().HasMaxLength(100);
+            //MINIONS: 
+            modelBuilder.Entity<Minion>()  
+                .Property(m => m.Type)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Minion>()
+                .Property(m => m.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<Minion>()
+                .Property(m => m.Description)
+                .IsRequired()
+                .HasMaxLength(500);
         }
     }
 }
