@@ -1,4 +1,5 @@
 ﻿using OverlordAPI.Interfaces;
+using OverlordAPI.Models.DTOs;
 using OverlordAPI.Models.Entities;
 
 namespace OverlordAPI.Services
@@ -11,10 +12,17 @@ namespace OverlordAPI.Services
         {
             _repository = repository;
         }
-        public async Task<bool> CreateMissionAsync(Mission mission)
+        public async Task<bool> CreateMissionAsync(MissionCreateDto dto)
         {
-            if (mission.Difficulty < 1 || mission.Difficulty > 10)
+            if (dto.Difficulty < 1 || dto.Difficulty > 10)
                 return false;
+
+            var mission = new Mission
+            {
+                Title = dto.Title,
+                Difficulty = dto.Difficulty,
+                isCompleted = dto.isCompleted
+            };
 
             await _repository.AddAsync(mission);
             await _repository.SaveAsync();
