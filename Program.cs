@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OverlordAPI.Data;
 using OverlordAPI.Interfaces;
 using OverlordAPI.Repositories;
+using OverlordAPI.Services;
 using System;
 
 namespace OverlordAPI
@@ -21,6 +22,8 @@ namespace OverlordAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DB_CONNECTION_STRING")));
 
             builder.Services.AddScoped<IMinionRepository, MinionRepository>();
+            builder.Services.AddScoped<IMinionService, MinionService>();
+            builder.Services.AddScoped<IMissionService, MissionService>();
 
             var app = builder.Build();
 
