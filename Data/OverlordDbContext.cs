@@ -13,7 +13,7 @@ namespace OverlordAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //MINIONS: 
+            //Minions: 
             modelBuilder.Entity<Minion>()  
                 .Property(m => m.Type)
                 .HasConversion<string>();
@@ -27,6 +27,23 @@ namespace OverlordAPI.Data
                 .Property(m => m.Description)
                 .IsRequired()
                 .HasMaxLength(500);
+
+            //Evil Lairs:
+            modelBuilder.Entity<EvilLair>()
+                .Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<EvilLair>()
+                .Property(e => e.Location)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            //Missions:
+            modelBuilder.Entity<Mission>()
+                .Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(100);
         }
     }
 }
