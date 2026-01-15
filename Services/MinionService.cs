@@ -1,4 +1,5 @@
 ﻿using OverlordAPI.Interfaces;
+using OverlordAPI.Models.DTOs;
 using OverlordAPI.Models.Entities;
 
 namespace OverlordAPI.Services
@@ -17,10 +18,19 @@ namespace OverlordAPI.Services
             return await _repository.GetAllAsync();
         }
 
-        public async Task<bool> CreateMinionAsync(Minion minion)
+        public async Task<bool> CreateMinionAsync(MinionCreateDto dto)
         {
-            if (minion.EvilLevel < 1 || minion.EvilLevel > 10)
+            if (dto.EvilLevel < 1 || dto.EvilLevel > 10)
                 return false;
+
+            var minion = new Minion
+            {
+                Name = dto.Name,
+                Description = dto.Description,
+                Type = dto.Type,
+                EvilLevel = dto.EvilLevel,
+                EvilLairId = dto.EvilLairId
+            };
 
             await _repository.AddAsync(minion);
             await _repository.SaveAsync();
