@@ -5,7 +5,7 @@ namespace OverlordAPI.Interfaces
 {
     public interface IMinionService
     {
-        Task<IEnumerable<Minion>> GetAllMinionsAsync();
+        Task<IEnumerable<MinionReadDto>> GetAllMinionsAsync();
         Task<bool> CreateMinionAsync(MinionCreateDto dto);
     }
 }

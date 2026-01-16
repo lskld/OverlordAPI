@@ -13,9 +13,19 @@ namespace OverlordAPI.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Minion>> GetAllMinionsAsync()
+        public async Task<IEnumerable<MinionReadDto>> GetAllMinionsAsync()
         {
-            return await _repository.GetAllAsync();
+            var minions = await _repository.GetAllAsync();
+
+            return minions.Select(m => new MinionReadDto
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Description = m.Description,
+                Type = m.Type.ToString(),
+                EvilLevel = m.EvilLevel,
+                EvilLairName = m.EvilLair?.Name ?? string.Empty
+            });
         }
 
         public async Task<bool> CreateMinionAsync(MinionCreateDto dto)
