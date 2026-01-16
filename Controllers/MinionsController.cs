@@ -21,6 +21,13 @@ namespace OverlordAPI.Controllers
             var minions = await _minionService.GetAllMinionsAsync();
             return Ok(minions); 
         }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var minion = await _minionService.GetMinionByIdAsync(id);
+            return Ok(minion);
+        } 
 
         [HttpPost]
         public async Task<IActionResult> Create(MinionCreateDto dto)

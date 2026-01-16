@@ -1,4 +1,5 @@
-﻿using OverlordAPI.Interfaces;
+﻿using OverlordAPI.Enums;
+using OverlordAPI.Interfaces;
 using OverlordAPI.Models.DTOs;
 using OverlordAPI.Models.Entities;
 
@@ -27,6 +28,24 @@ namespace OverlordAPI.Services
                 EvilLairName = m.EvilLair?.Name ?? string.Empty
             });
         }
+        
+        public async Task<MinionReadDto?> GetMinionByIdAsync(int id)
+        {
+            var minion = await _repository.GetByIdAsync(id);
+
+            if (minion == null)
+                return null;
+
+            return new MinionReadDto
+            {
+                Id = minion.Id,
+                Name = minion.Name,
+                Description = minion.Description,
+                Type = minion.Type.ToString(),
+                EvilLevel = minion.EvilLevel,
+                EvilLairName = minion.EvilLair?.Name ?? string.Empty
+            };
+        } 
 
         public async Task<bool> CreateMinionAsync(MinionCreateDto dto)
         {
