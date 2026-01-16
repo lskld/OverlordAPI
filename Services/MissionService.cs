@@ -28,5 +28,34 @@ namespace OverlordAPI.Services
             await _repository.SaveAsync();
             return true;
         }
+
+        public async Task<IEnumerable<MissionReadDto>> GetAllMissionsAsync()
+        {
+            var missions = await _repository.GetAllAsync();
+
+            return missions.Select(m => new MissionReadDto
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Difficulty = m.Difficulty,
+                isCompleted = m.isCompleted
+            });
+        }
+
+        public async Task<MissionReadDto?> GetMissionByIdAsync(int id)
+        {
+            var mission = await _repository.GetByIdAsync(id);
+
+            if (mission == null)
+                return null;
+
+            return new MissionReadDto
+            {
+                Id = mission.Id,
+                Title = mission.Title,
+                Difficulty = mission.Difficulty,
+                isCompleted = mission.isCompleted
+            };
+        }
     }
 }

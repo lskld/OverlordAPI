@@ -35,9 +35,7 @@ namespace OverlordAPI.Controllers
             var success = await _minionService.CreateMinionAsync(dto);
 
             if (!success)
-            {
                 return BadRequest("Could not create minion");
-            }
 
             return Ok("Minion successfully created!");
         }

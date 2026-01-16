@@ -5,6 +5,8 @@ namespace OverlordAPI.Interfaces
 {
     public interface IMissionService
     {
+        Task<IEnumerable<MissionReadDto>> GetAllMissionsAsync();
+        Task<MissionReadDto?> GetMissionByIdAsync(int id);
         Task<bool> CreateMissionAsync(MissionCreateDto dto);
     }
 }
