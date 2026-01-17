@@ -1,0 +1,99 @@
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using OverlordAPI.Interfaces;
+using OverlordAPI.Models.DTOs;
+using OverlordAPI.Models.Entities;
+
+namespace OverlordAPI.Services
+{
+    public class MissionService : IMissionService
+    {
+        private readonly IMissionRepository _repository;
+        private readonly IMinionRepository _minionRepository;
+
+        public MissionService(IMissionRepository repository, IMinionRepository minionRepository)
+        {
+            _repository = repository;
+            _minionRepository = minionRepository;
+        }
+        public async Task<bool> CreateMissionAsync(MissionCreateDto dto)
+        {
+            if (dto.Difficulty < 1 || dto.Difficulty > 10)
+                return false;
+
+            var mission = new Mission
+            {
+                Title = dto.Title,
+                Difficulty = dto.Difficulty,
+                isCompleted = dto.isCompleted
+            };
+
+            await _repository.AddAsync(mission);
+            await _repository.SaveAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<MissionReadDto>> GetAllMissionsAsync()
+        {
+            var missions = await _repository.GetAllAsync();
+
+            return missions.Select(m => new MissionReadDto
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Difficulty = m.Difficulty,
+                isCompleted = m.isCompleted
+            });
+        }
+
+        public async Task<MissionReadDto?> GetMissionByIdAsync(int id)
+        {
+            var mission = await _repository.GetByIdAsync(id);
+
+            if (mission == null)
+                return null;
+
+            return new MissionReadDto
+            {
+                Id = mission.Id,
+                Title = mission.Title,
+                Difficulty = mission.Difficulty,
+                isCompleted = mission.isCompleted
+            };
+        }
+
+        public async Task<IEnumerable<MinionReadDto>?> GetMinionsInMissionAsync(int id)
+        {
+            var mission = await _repository.GetByIdAsync(id);
+
+            if (mission == null)
+                return null;
+
+            if (mission.Minions == null)
+                return null;
+
+            return mission.Minions.Select(m => new MinionReadDto
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Description = m.Description,
+                Type = m.Type.ToString(),
+                EvilLevel = m.EvilLevel,
+                EvilLairName = m.EvilLair?.Name ?? string.Empty
+            });
+        }
+
+        public async Task<bool> AssignMinionToMissionAsync(int minionId, int missionId)
+        {
+            var minion = await _minionRepository.GetByIdAsync(minionId);
+            var mission = await _repository.GetByIdAsync(missionId);
+
+            if (mission == null || minion == null) 
+                return false;
+
+            mission.Minions.Add(minion);
+            await _repository.SaveAsync();
+            return true;
+        }
+    }
+}
