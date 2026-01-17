@@ -1,4 +1,6 @@
-﻿using OverlordAPI.Interfaces;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using OverlordAPI.Interfaces;
 using OverlordAPI.Models.DTOs;
 using OverlordAPI.Models.Entities;
 
@@ -56,6 +58,27 @@ namespace OverlordAPI.Services
                 Difficulty = mission.Difficulty,
                 isCompleted = mission.isCompleted
             };
+        }
+
+        public async Task<IEnumerable<MinionReadDto>?> GetMinionsInMissionAsync(int id)
+        {
+            var mission = await _repository.GetByIdAsync(id);
+
+            if (mission == null)
+                return null;
+
+            if (mission.Minions == null)
+                return null;
+
+            return mission.Minions.Select(m => new MinionReadDto
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Description = m.Description,
+                Type = m.Type.ToString(),
+                EvilLevel = m.EvilLevel,
+                EvilLairName = m.EvilLair?.Name ?? string.Empty
+            });
         }
     }
 }

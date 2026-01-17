@@ -16,12 +16,16 @@ namespace OverlordAPI.Repositories
 
         public async Task<IEnumerable<Mission>> GetAllAsync()
         {
-            return await _context.Missions.Include(m => m.Minions).ToListAsync();
+            return await _context.Missions.Include(m => m.Minions)
+                .ThenInclude(m => m.EvilLair)
+                .ToListAsync();
         }
 
         public async Task<Mission?> GetByIdAsync(int id)
         {
-            return await _context.Missions.Include(m => m.Minions).FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Missions.Include(m => m.Minions)
+                .ThenInclude(m => m.EvilLair)
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
         public async Task AddAsync(Mission mission)
         {

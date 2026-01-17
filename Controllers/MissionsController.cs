@@ -39,5 +39,13 @@ namespace OverlordAPI.Controllers
 
             return Ok("Mission successfully created!");
         }
+
+        [HttpGet("{id}/minions/")]
+        public async Task<IActionResult> GetAssignedMinions(int id)
+        {
+            var minions = await _missionService.GetMinionsInMissionAsync(id);
+
+            return Ok(minions);
+        }
     }
 }
