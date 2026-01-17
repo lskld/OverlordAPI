@@ -9,10 +9,12 @@ namespace OverlordAPI.Services
     public class MissionService : IMissionService
     {
         private readonly IMissionRepository _repository;
+        private readonly IMinionRepository _minionRepository;
 
-        public MissionService(IMissionRepository repository)
+        public MissionService(IMissionRepository repository, IMinionRepository minionRepository)
         {
             _repository = repository;
+            _minionRepository = minionRepository;
         }
         public async Task<bool> CreateMissionAsync(MissionCreateDto dto)
         {
@@ -79,6 +81,19 @@ namespace OverlordAPI.Services
                 EvilLevel = m.EvilLevel,
                 EvilLairName = m.EvilLair?.Name ?? string.Empty
             });
+        }
+
+        public async Task<bool> AssignMinionToMissionAsync(int minionId, int missionId)
+        {
+            var minion = await _minionRepository.GetByIdAsync(minionId);
+            var mission = await _repository.GetByIdAsync(missionId);
+
+            if (mission == null || minion == null) 
+                return false;
+
+            mission.Minions.Add(minion);
+            await _repository.SaveAsync();
+            return true;
         }
     }
 }

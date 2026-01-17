@@ -47,5 +47,16 @@ namespace OverlordAPI.Controllers
 
             return Ok(minions);
         }
+
+        [HttpPost("/assign/minion/{minionId}/mission/{missionId}")]
+        public async Task<IActionResult> AssignMinionToMission(int minionId,  int missionId)
+        {
+            var success = await _missionService.AssignMinionToMissionAsync(minionId, missionId);
+
+            if (!success)
+                return BadRequest("The entered minion or mission doesn't exist");
+
+            return Ok("The minion has been connected to the mission");
+        }
     }
 }

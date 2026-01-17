@@ -9,5 +9,6 @@ namespace OverlordAPI.Interfaces
         Task<MissionReadDto?> GetMissionByIdAsync(int id);
         Task<bool> CreateMissionAsync(MissionCreateDto dto);
         Task<IEnumerable<MinionReadDto>?> GetMinionsInMissionAsync(int id);
+        Task<bool> AssignMinionToMissionAsync(int minionId, int missionId);
     }
 }
