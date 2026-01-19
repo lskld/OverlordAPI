@@ -1,8 +1,8 @@
-# 🦹 OverlordAPI
+# OverlordAPI
 
 A .NET 10 Web API for managing your evil empire. Minions, lairs, and world-domination missions included.
 
-## 📖 About
+## About
 
 This project was created to practice building a **clean, layered API architecture**. It demonstrates:
 
@@ -13,9 +13,9 @@ This project was created to practice building a **clean, layered API architectur
 - **Entity Framework Core** – Code-first approach with SQL Server
 - **Swagger/OpenAPI** – Interactive API documentation
 
-## 🏗️ Project Structure
+## Project Structure
 
-## 🧪 Entities
+## Entities
 
 | Entity     | Description                                      |
 |------------|--------------------------------------------------|
@@ -26,7 +26,7 @@ This project was created to practice building a **clean, layered API architectur
 ### Minion Types
 `Apprentice` · `Scientist` · `Soldier` · `Janitor` · `Infiltrator` · `Mystic`
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
@@ -42,7 +42,7 @@ This project was created to practice building a **clean, layered API architectur
 5. **Explore the API**  
 Navigate to `https://localhost:<port>/swagger` to view the interactive Swagger UI.
 
-## 📡 API Endpoints
+## API Endpoints
 
 | Method | Endpoint                                                       | Description              |
 |--------|----------------------------------------------------------------|--------------------------|
@@ -55,14 +55,14 @@ Navigate to `https://localhost:<port>/swagger` to view the interactive Swagger U
 | POST   | `/api/missions/assign/minion/minionId}/mission/{missionId}`    | Create a new mission     |
               
 
-## 🛠️ Technologies
+## Technologies
 
 - **.NET 10** / ASP.NET Core
 - **Entity Framework Core** (SQL Server)
 - **Swagger / Swashbuckle**
 - **C# 14**
 
-## 📚 What I Learned
+## What I Learned
 
 - Structuring an API with separation of concerns
 - Using interfaces to decouple layers
